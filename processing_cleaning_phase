@@ -3,7 +3,7 @@ First, let's create a table for our individual csv files using the following SQL
 */
 
 CREATE TABLE trip202111(
-	  ride_id VARCHAR(200) NULL,
+    ride_id VARCHAR(200) NULL,
     rideable_Type VARCHAR(200) NULL,
     started_at TIMESTAMP NULL,
     ended_at TIMESTAMP NULL,
