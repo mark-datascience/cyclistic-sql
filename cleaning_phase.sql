@@ -18,7 +18,7 @@ FROM
 GROUP BY
 	LENGTH(ride_id);
 
--------#2 Remove leading and trailing spaces at start_station_name and end_station_name
+-------#3 Remove leading and trailing spaces at start_station_name and end_station_name
 	
 UPDATE
 	trip_one_year
