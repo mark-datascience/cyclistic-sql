@@ -73,11 +73,40 @@ FROM
 	trip_one_year 
 WHERE
 	end_lng IS NULL
-    OR end_lat IS NULL
-    OR start_lng IS NULL
-    OR start_lat IS NULL;
-
--- delete NULL values in start_lat, start_lng, end_lat, end_lng
+	OR end_lat IS NULL
+   	OR start_lng IS NULL
+	OR start_lat IS NULL;
 
 
+-------#7 We will now add columns that will be used in our analysis
 
+ALTER TABLE trip_one_year
+ADD COLUMN month VARCHAR(200) AFTER member_casual;
+
+UPDATE trip_one_year
+SET month = (CASE WHEN MONTH(started_at) = 1 THEN 'Jan'
+         WHEN MONTH(started_at) = 2 THEN 'Feb'
+         WHEN MONTH(started_at)= 3 THEN 'Mar'
+         WHEN MONTH(started_at)= 4 THEN 'Apr'
+         WHEN MONTH(started_at)= 5 THEN 'May'
+         WHEN MONTH(started_at)= 6 THEN 'Jun'
+         WHEN MONTH(started_at) = 7 THEN 'July'
+         WHEN MONTH(started_at)= 8 THEN 'Aug'
+         WHEN MONTH(started_at)= 9 THEN 'Sept'
+         WHEN MONTH(started_at)= 10 THEN 'Oct'
+         WHEN MONTH(started_at) = 11 THEN 'Nov'
+         ELSE 'Dec'
+	END);
+
+
+ALTER TABLE trip_one_year
+ADD COLUMN date DATE AFTER member_casual;
+
+UPDATE trip_one_year
+SET day = DAY(started_at);
+
+ALTER TABLE trip_one_year
+ADD COLUMN ride_duration_seconds TIMESTAMP AFTER member_casual;
+
+UPDATE trip_one_year
+SET ride_duration_seconds = TIMESTAMPDIFF(SECOND, started_at, ended_at);
