@@ -197,7 +197,7 @@ CREATE TABLE trip202210(
 NOTE: replace the data file with the approriate file name for the succeeding csv files
 */
 LOAD DATA LOCAL INFILE '202111-divvy-tripdata.csv'
-INTO TABLE test1.test_cyclistic
+INTO TABLE trip202111
 FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\r\n'
