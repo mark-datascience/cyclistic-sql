@@ -25,7 +25,59 @@ UPDATE
 SET
 	start_station_name = TRIM(start_station_name);
 
+
 UPDATE
 	trip_one_year
 SET
 	start_station_name = TRIM(end_station_name);
+
+-------#4 Check for duplicate entries in ride_id. Ride IDs should be unique, remove any duplicate or verify if the csv files are imported correctly.
+
+SELECT
+ 	COUNT(DISTINCT ride_id) AS unique_ride_id
+FROM
+	cyclistic_data.trip_one_year;
+
+-------#5 Check for negative timestamp. We will then delete these rows since there is no negative time duration.
+
+SELECT
+	ride_id, started_at, ended_at,TIMESTAMPDIFF(SECOND, started_at , ended_at)
+FROM 
+	trip_one_year
+WHERE 
+	TIMESTAMPDIFF(SECOND, started_at , ended_at) < 0;
+
+DELETE
+	
+FROM
+	trip_one_year 
+WHERE
+	TIMESTAMPDIFF(SECOND, started_at , ended_at) < 0
+
+-------#6 Check for NULL values at the latitude and longitude. We will then delete these rows since there cannot be a NULL value in location (coordinates)
+
+SELECT 
+	*
+FROM
+	trip_one_year 
+WHERE
+	end_lng IS NULL
+    OR end_lat IS NULL
+    OR start_lng IS NULL
+    OR start_lat IS NULL;
+
+
+DELETE
+	
+FROM
+	trip_one_year 
+WHERE
+	end_lng IS NULL
+    OR end_lat IS NULL
+    OR start_lng IS NULL
+    OR start_lat IS NULL;
+
+-- delete NULL values in start_lat, start_lng, end_lat, end_lng
+
+
+
