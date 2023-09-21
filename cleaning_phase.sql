@@ -78,7 +78,7 @@ WHERE
 	OR start_lat IS NULL;
 
 
--------#7 We will now add columns that will be used in our analysis
+-------#7 We will now add columns that will be used later in our analysis
 
 ALTER TABLE trip_one_year
 ADD COLUMN month VARCHAR(200) AFTER member_casual;
