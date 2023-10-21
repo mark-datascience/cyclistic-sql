@@ -30,6 +30,7 @@ GROUP BY
 	day_of_week, member_casual;
 
 -------#4 rides per month 
+
 SELECT
 	member_casual, month, count(*) AS rides_per_month
 FROM
@@ -37,3 +38,11 @@ FROM
 GROUP BY
 	month, member_casual;
     
+-------#5 average ride duration in seconds by day of week and by membership type
+
+SELECT
+	member_casual, day_of_week, ROUND(AVG(ride_duration_seconds), 2) AS avg_ride_time_seconds, AVG(AVG(ride_duration_seconds)) OVER(PARTITION BY member_casual) AS consolidated_avg_ride_duration 
+FROM
+	trip_one_year
+GROUP BY
+	member_casual, day_of_week;
